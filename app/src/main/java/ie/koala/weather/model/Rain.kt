@@ -1,8 +1,7 @@
 package ie.koala.weather.model
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
 
 data class Rain(
-        @SerializedName("3h")
-        var threeH: String? = null
+        @field:Json(name = "3h") var threeH: String = ""
 )

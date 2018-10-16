@@ -1,9 +1,18 @@
 package ie.koala.weather.model
 
+import androidx.room.Embedded
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import com.squareup.moshi.Json
+
+@Entity
 data class Forecast(
-        var message: String? = null,
-        var cnt: String? = null,
-        var cod: String? = null,
-        var list: Array<DailyForecast>? = null,
-        var city: City? = null
-)
+        @field:Json(name = "message") var message: String = "",
+        @field:Json(name = "cnt") var cnt: String = "",
+        @field:Json(name = "cod") var cod: String = "",
+        @field:Json(name = "list") var list: List<WeatherConditions> = listOf(),
+        @field:Json(name = "city") @Embedded var city: City = City()
+){
+    @PrimaryKey(autoGenerate = true)
+    var forecastId: Int = 0
+}

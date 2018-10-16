@@ -1,6 +1,8 @@
 package ie.koala.weather.model
 
+import com.squareup.moshi.Json
+
 data class Wind(
-        var speed: String? = null,
-        var deg: String? = null
+        @field:Json(name = "speed") var speed: String = "",
+        @field:Json(name = "deg") var deg: String = ""
 )

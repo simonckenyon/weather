@@ -1,26 +1,17 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 28
     defaultConfig {
         applicationId 'ie.koala.weather'
-        minSdkVersion 21
+        minSdkVersion 26
         targetSdkVersion 28
         versionCode 1
         versionName '1.0'
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
-    }
-    configurations.all {
-        resolutionStrategy.eachDependency { DependencyResolveDetails details ->
-            def requested = details.requested
-            if (requested.group == "com.android.support") {
-                if (!requested.name.startsWith("multidex")) {
-                    details.useVersion "26.+"
-                }
-            }
-        }
     }
     buildTypes {
         release {
@@ -45,6 +36,22 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.cardview:cardview:1.0.0'
 
+    // architecture components
+    implementation 'android.arch.lifecycle:runtime:1.1.1'
+    implementation 'android.arch.paging:runtime:1.0.1'
+    implementation('android.arch.work:work-runtime:1.0.0-alpha09') {
+        exclude group: 'com.google.guava', module: 'listenablefuture'
+    }
+
+    // Room components
+    implementation 'android.arch.persistence.room:runtime:1.1.1'
+    kapt 'android.arch.persistence.room:compiler:1.1.1'
+    androidTestImplementation 'android.arch.persistence.room:testing:1.1.1'
+
+    // Lifecycle components
+    implementation 'android.arch.lifecycle:extensions:1.1.1'
+    kapt 'android.arch.lifecycle:compiler:1.1.1'
+
     // Material Design
     implementation 'com.google.android.material:material:1.0.0'
 
@@ -56,7 +63,10 @@ dependencies {
 
     // retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    //implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    implementation "com.squareup.retrofit2:converter-moshi:2.4.0"
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.0'
+
 
     // logging
     api 'org.slf4j:slf4j-api:1.7.25'
