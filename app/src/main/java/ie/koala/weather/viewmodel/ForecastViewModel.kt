@@ -13,8 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package ie.koala.weather.ui
+package ie.koala.weather.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -26,14 +25,10 @@ import ie.koala.weather.model.ForecastRequest
 import ie.koala.weather.model.ForecastResult
 
 /**
- * ViewModel for the [WeatherActivity] screen.
+ * ViewModel for the [MainActivity] activity.
  * The ViewModel works with the [ForecastRepository] to get the data.
  */
 class ForecastViewModel(private val repository: ForecastRepository) : ViewModel() {
-
-    companion object {
-        private const val VISIBLE_THRESHOLD = 5
-    }
 
     private val queryLiveData = MutableLiveData<ForecastRequest>()
     private val forecastResult: LiveData<ForecastResult> = Transformations.map(queryLiveData) { forecastRequest: ForecastRequest ->
@@ -52,15 +47,6 @@ class ForecastViewModel(private val repository: ForecastRepository) : ViewModel(
      */
     fun getForecast(request: ForecastRequest) {
         queryLiveData.postValue(request)
-    }
-
-    fun listScrolled(visibleItemCount: Int, lastVisibleItemPosition: Int, totalItemCount: Int) {
-        if (visibleItemCount + lastVisibleItemPosition + VISIBLE_THRESHOLD >= totalItemCount) {
-            val request = lastQueryValue()
-            if (request != null) {
-                repository.requestMore(request)
-            }
-        }
     }
 
     /**

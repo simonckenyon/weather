@@ -1,7 +1,9 @@
 package ie.koala.weather.model
 
 import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
+@JsonClass(generateAdapter = true)
 data class Main(
         @field:Json(name = "temp_kf") var temp_kf: String = "",
         @field:Json(name = "humidity") var humidity: String = "",

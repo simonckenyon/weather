@@ -13,14 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package ie.koala.weather.db
 
 import androidx.lifecycle.LiveData
 import ie.koala.weather.model.Forecast
 import ie.koala.weather.model.ForecastRequest
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 import java.util.concurrent.Executor
 
 /**
@@ -31,27 +28,30 @@ class ForecastLocalCache(
         private val forecastDao: ForecastDao,
         private val ioExecutor: Executor
 ) {
-
     /**
      * Insert a forecast into the database, on a background thread.
      */
     fun insert(forecast: Forecast, insertFinished: ()-> Unit) {
         ioExecutor.execute {
-            log.debug("insert.execute: inserting  forecast=${forecast}")
             forecastDao.insert(forecast)
             insertFinished()
         }
     }
 
     /**
-     * Request a LiveData<Forecast> from the Dao, based on a lat and lon.
-     * @param name city name
+     * Request a LiveData<Forecast> from the Dao, based on a latitude and longitude.
+     * @param request Object containing the latitude and longitude
      */
     fun forecastByLatAndLon(request: ForecastRequest): LiveData<Forecast> {
-        return forecastDao.forecastByRequest(request.lat, request.lon)
+        val forecastLiveData = forecastDao.forecastByRequest(
+                request.lat.toFloat() - DISTANCE_FUZZ,
+                request.lat.toFloat() + DISTANCE_FUZZ,
+                request.lon.toFloat() - DISTANCE_FUZZ,
+                request.lon.toFloat() + DISTANCE_FUZZ)
+        return forecastLiveData
     }
 
     companion object {
-        val log: Logger = LoggerFactory.getLogger(ForecastLocalCache::class.java)
+        const val DISTANCE_FUZZ = 0.04f // approx 2.75 miles
     }
 }

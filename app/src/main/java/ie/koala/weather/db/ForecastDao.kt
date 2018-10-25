@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package ie.koala.weather.db
 
 import androidx.lifecycle.LiveData
@@ -32,8 +31,8 @@ interface ForecastDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(forecast: Forecast)
 
-    // Look for forecasts that contain the query string in the city
-    @Query("SELECT * FROM forecast WHERE (lat = :lat AND lon = :lon)")
-    fun forecastByRequest(lat: String, lon: String): LiveData<Forecast>
+    // Look for forecasts that are within a box around the location
+    @Query("SELECT * FROM forecast WHERE (lat BETWEEN :latMin AND :latMax AND lon BETWEEN :lonMin AND :lonMax)")
+    fun forecastByRequest(latMin: Float, latMax: Float, lonMin: Float, lonMax: Float): LiveData<Forecast>
 
 }

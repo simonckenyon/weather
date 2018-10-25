@@ -17,7 +17,7 @@ package ie.koala.weather
 
 import android.content.Context
 import androidx.lifecycle.ViewModelProvider
-import ie.koala.weather.ui.ViewModelFactory
+import ie.koala.weather.viewmodel.ViewModelFactory
 import ie.koala.weather.data.ForecastRepository
 import ie.koala.weather.api.ForecastService
 import ie.koala.weather.db.ForecastDatabase

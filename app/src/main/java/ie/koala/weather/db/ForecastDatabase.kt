@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package ie.koala.weather.db
 
 import android.content.Context
@@ -31,7 +30,6 @@ import ie.koala.weather.model.Forecast
         version = 1,
         exportSchema = false
 )
-
 @TypeConverters(Converters::class)
 abstract class ForecastDatabase : RoomDatabase() {
 

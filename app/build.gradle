@@ -63,10 +63,13 @@ dependencies {
 
     // retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
-    //implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
-    implementation "com.squareup.retrofit2:converter-moshi:2.4.0"
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.10.0'
 
+    // moshi
+    implementation "com.squareup.retrofit2:converter-moshi:2.4.0"
+    implementation "com.squareup.moshi:moshi:1.7.0"
+    implementation "com.squareup.moshi:moshi-kotlin:1.7.0"
+    kapt 'com.squareup.moshi:moshi-kotlin-codegen:1.7.0'
 
     // logging
     api 'org.slf4j:slf4j-api:1.7.25'
@@ -80,7 +83,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-location:16.0.0'
 
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.1.0-beta01'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-beta01'
+    androidTestImplementation 'androidx.test:runner:1.1.0-beta02'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-beta02'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
 }
